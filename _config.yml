@@ -18,12 +18,12 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: The untextured's Documentations
+title: Async Conveyor Plugin
 email: theuntexuted@hotmail.com
-description: Documentations for my Unreal Engine Projects!
-baseurl: "" # the subpath of your site, e.g. /blog
+description: Documentations for the Async Conveyor Plugin
+baseurl: "/AsyncConveyorPlugin/" # the subpath of your site, e.g. /blog
 url: "https://Theuntextured.github.io"
-twitter_username: Theuntextured
+twitter_username: theuntextured
 github_username:  Theuntextured
 
 # Build settings
