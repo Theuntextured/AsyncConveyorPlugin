@@ -18,9 +18,9 @@ document.addEventListener("DOMContentLoaded", async function() {
         'struct': '#2c3392ff'
     };
 
-    const PATH_EXEC = '/assets/images/bp_pin_exec.svg';
-    const PATH_DATA = '/assets/images/bp_pin_data.svg';
-    const PATH_REF = '/assets/images/bp_pin_ref.svg';
+    const PATH_EXEC = '/AsyncConveyorPlugin/assets/images/bp_pin_exec.svg';
+    const PATH_DATA = '/AsyncConveyorPlugin/assets/images/bp_pin_data.svg';
+    const PATH_REF = '/AsyncConveyorPlugin/assets/images/bp_pin_ref.svg';
 
     // --- 1. Fetch SVGs ---
     let execSvgTemplate = '';

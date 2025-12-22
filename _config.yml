@@ -18,7 +18,8 @@ callouts:
     title: Advanced
     color: grey-lt
 
-url: https://theuntextured.github.io/AsyncConveyorPlugin/
+baseurl: /AsyncConveyorPlugin
+url: https://theuntextured.github.io
 
 aux_links:
   FAB Plugin: https://www.fab.com/listings/7ebfd4f3-eec3-4204-82aa-98b7ff01ec5f
