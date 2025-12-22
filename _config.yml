@@ -1,6 +1,9 @@
 title: Async Conveyor Plugin
 description: Documentation for the Async Conveyor Plugin for Unreal Engine 5, for version 3.0 of the plugin and above
-theme: just-the-docs
+remote_theme: just-the-docs/just-the-docs
+
+plugins:
+  - jekyll-remote-theme
 favicon_ico: /assets/images/icon.svg
 color_scheme: dark
 
