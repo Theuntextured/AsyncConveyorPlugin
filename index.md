@@ -13,6 +13,6 @@ This page is about how you can implement the plugin into your project.
 
 [Download the Demo Project](https://github.com/Theuntextured/AsyncConveyorPlugin/releases/tag/v3.0.0)
 
-![Logo](/assets/images/icon.svg) 
+![Logo](/AsyncConveyorPlugin/assets/images/icon.svg) 
 
 ---
