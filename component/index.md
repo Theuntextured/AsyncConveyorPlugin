@@ -98,6 +98,11 @@ At the bottom of the context menu is a selector for visualization modes.
 
 **Conveyor Handle:** Not found in the details panel, but is exposed on spawn and blueprint read-only. You can either spawn the component with a valid handle, which will link it to the simulation layer without re-registering, or if initially invalid, it will be validated on registration and can then be used to interact with the simulation layer via the [Conveyor Statics] blueprint function library.
 
+{: .todo}
+> add event dispatcher to function for when the registration is done.
+
+Once the conveyor component has registered, the `On Conveyor Component Registered` event will be called. This can be overridden in blueprint.
+
 ---
 
 ## Manually Registering the Data
@@ -109,12 +114,23 @@ At the bottom of the context menu is a selector for visualization modes.
 
 --- 
 
-By creating a `Conveyor Component Data` struct, you can then call `Register Conveyor Component` and `Unregister Conveyor Component` via the [Conveyor Statics] library/
+By creating a `Conveyor Component Data` struct, you can then call `Register Conveyor Component` and `Unregister Conveyor Component` via the [Conveyor Statics] library.
 
-{bp_node_impure, Register Component, target_static Conveyor Statics, pin_transform Component Transform, pin_struct Component Data, out_pin_struct Out Handle}
+{: .todo}
+> Add event dispatcher to function for when the registration is done.
+
+{bp_node_impure, Register Conveyor Component, target_static Conveyor Statics, pin_transform Component Transform, pin_struct Component Data, pin_event On Register, out_pin_struct Out Handle}
 
 The data struct is assembled just like it would in the component editor, but manually. The `Component Transform` parameter indicates the transform of the component in world space. The function returns the handle for the component, which can be used to interact with in the simulation layer and to unregister the component, using the `Unregister Conveyor Component` function, which will return true if the unregistration was successful.
 
 {bp_node_impure, Unregister Component, target_static Conveyor Statics, pin_struct Handle}
 
 ---
+
+[Conveyor Subsystem]: /AsyncConveyorPlugin/subsystem/
+[Conveyor Component Data]: /AsyncConveyorPlugin/component/#manually-registering-the-data
+[Item Payload]: /AsyncConveyorPlugin/item/#conveyor-item
+[Conveyor Statics]: /AsyncConveyorPlugin/conveyor-statics/
+[Conveyor Component]: /AsyncConveyorPlugin/component/
+[Conveyor Action]: /AsyncConveyorPlugin/node-actions/
+[Conveyor Actions]: /AsyncConveyorPlugin/node-actions/

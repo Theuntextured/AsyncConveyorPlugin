@@ -83,3 +83,16 @@ It will be called once per node per tick, even if stateless.
 It is called **after** the item has crossed over the node.
 
 ---
+
+{: .note}
+> Conveyor actions have world context access only after being registered with the subsystem, meaning that the `GetWorld()` function can be called on it and it will return a valid world only after being registered.
+
+---
+
+[Conveyor Subsystem]: /AsyncConveyorPlugin/subsystem/
+[Conveyor Component Data]: /AsyncConveyorPlugin/component/#manually-registering-the-data
+[Item Payload]: /AsyncConveyorPlugin/item/#conveyor-item
+[Conveyor Statics]: /AsyncConveyorPlugin/conveyor-statics/
+[Conveyor Component]: /AsyncConveyorPlugin/component/
+[Conveyor Action]: /AsyncConveyorPlugin/node-actions/
+[Conveyor Actions]: /AsyncConveyorPlugin/node-actions/

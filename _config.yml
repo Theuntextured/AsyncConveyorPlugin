@@ -1,6 +1,8 @@
 title: Async Conveyor Plugin
 description: Documentation for the Async Conveyor Plugin for Unreal Engine 5, for version 3.0 of the plugin and above
+
 remote_theme: just-the-docs/just-the-docs
+#theme: just-the-docs
 
 plugins:
   - jekyll-remote-theme
@@ -20,6 +22,9 @@ callouts:
   advanced:
     title: Advanced
     color: grey-lt
+  todo:
+    title: TO-DO! (NOTE TO SELF)
+    color: purple
 
 baseurl: /AsyncConveyorPlugin
 url: https://theuntextured.github.io

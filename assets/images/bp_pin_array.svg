@@ -1,0 +1,12 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g stroke="{{COLOR}}" stroke-width="6" stroke-linejoin="round">
+    <rect x="35" y="35" width="35" height="35" rx="4" />
+    <rect x="82.5" y="35" width="35" height="35" rx="4" />
+    <rect x="130" y="35" width="35" height="35" rx="4" />
+    <rect x="35" y="82.5" width="35" height="35" rx="4" />
+    <rect x="130" y="82.5" width="35" height="35" rx="4" />
+    <rect x="35" y="130" width="35" height="35" rx="4" />
+    <rect x="82.5" y="130" width="35" height="35" rx="4" />
+    <rect x="130" y="130" width="35" height="35" rx="4" />
+  </g>
+</svg>

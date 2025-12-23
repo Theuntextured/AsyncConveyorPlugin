@@ -15,28 +15,38 @@ document.addEventListener("DOMContentLoaded", async function() {
         'transform':'#F67608',// Orange
         'object': '#00A6F6', // Blue (Object)
         'class':  '#5900B5',  // Deep Purple
-        'struct': '#2c3392ff'
+        'struct': '#2C3392',
+        'interface': '#D3F19B',
+        'event': '#FF0201'
     };
 
     const PATH_EXEC = '/AsyncConveyorPlugin/assets/images/bp_pin_exec.svg';
     const PATH_DATA = '/AsyncConveyorPlugin/assets/images/bp_pin_data.svg';
     const PATH_REF = '/AsyncConveyorPlugin/assets/images/bp_pin_ref.svg';
+    const PATH_ARRAY = '/AsyncConveyorPlugin/assets/images/bp_pin_array.svg';
+    const PATH_EVENT = '/AsyncConveyorPlugin/assets/images/bp_pin_event.svg';
 
     // --- 1. Fetch SVGs ---
     let execSvgTemplate = '';
     let dataSvgTemplate = '';
     let refSvgTemplate = '';
+    let arraySvgTemplate = '';
+    let eventSvgTemplate = '';
 
     try {
-        const [execRes, dataRes, refRes] = await Promise.all([
+        const [execRes, dataRes, refRes, arrayRes, eventRes] = await Promise.all([
             fetch(PATH_EXEC),
             fetch(PATH_DATA),
-            fetch(PATH_REF)
+            fetch(PATH_REF),
+            fetch(PATH_ARRAY),
+            fetch(PATH_EVENT)
         ]);
-        if (!execRes.ok || !dataRes.ok || !refRes.ok) throw new Error("Missing SVGs");
+        if (!execRes.ok || !dataRes.ok || !refRes.ok || !arrayRes.ok || !eventRes.ok) throw new Error("Missing SVGs");
         execSvgTemplate = await execRes.text();
         dataSvgTemplate = await dataRes.text();
         refSvgTemplate = await refRes.text();
+        arraySvgTemplate = await arrayRes.text();
+        eventSvgTemplate = await eventRes.text();
     } catch (err) {
         console.error("SVG Fetch Failed.", err);
         return;
@@ -45,12 +55,23 @@ document.addEventListener("DOMContentLoaded", async function() {
     // --- 2. Helper: Generate Pin HTML ---
     function createPinHtml(typeString, name, isOutput, isRef) {
         // Parse type: "pin_float" -> "float"
-        let colorKey = typeString.replace('out_pin_', '').replace('ref_pin_', '').replace('pin_', '');
+        let colorKey = typeString
+            .replace('out_pin_', '')
+            .replace('ref_pin_', '')
+            .replace('array_', '')
+            .replace('event_', '')
+            .replace('pin_', '');
         let hex = pinColors[colorKey] || '#cccccc';
         
         // Choose SVG Template
+        let isArray = typeString.includes('array_');
+        let isEvent = typeString.includes('event');
         let isExec = (colorKey === 'exec');
-        let rawSvg = isExec ? execSvgTemplate : (isRef ? refSvgTemplate : dataSvgTemplate);
+        let rawSvg = 
+        isExec ? execSvgTemplate : 
+            (isRef ? refSvgTemplate : 
+                (isArray ? arraySvgTemplate : 
+                    (isEvent ? eventSvgTemplate : dataSvgTemplate)));
         
         // Inject Color
         let coloredSvg = rawSvg.replace(/{{COLOR}}/g, hex);

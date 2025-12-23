@@ -35,10 +35,31 @@ The data required is a `Conveyor Item Descriptor` struct, which is composed as f
 
 ## Conveyor Item
 
-Conveyor items are simple structures. They store a `Conveyor Item Interface` object reference (in the form of a `TScriptInterface`) and a `TSharedPtr<IConveyorPayloadInterface> Payload`, accessible via C++ only.
+Conveyor items are simple structures. They store a `Conveyor Item Interface` object reference (in the form of a `TScriptInterface`) and a `TSharedPtr<IConveyorPayloadInterface> Payload`, accessible via C++, or via default implementation using the [Conveyor Statics] library.
 
 Creating and invalidating items is as simple as setting the `Item Data` property to whatever you want, null if you want to invalidate the item.
 
+With the default implementation for payloads, you can get and set payloads with the use of the `Instanced Struct` type, as follows:
+
+{bp_node_impure, Set Item Payload, target_static Conveyor Statics, ref_pin_struct Item, pin_struct Data}
+{bp_node_pure, Get Item Payload, target_static Conveyor Statics, pin_struct Item, out_pin_struct Return Value}
+
+{: .warning}
+> Be mindful that if you create your custom implementation of payloads, the default one should NOT be used in the same project, as it will cause crashes.
+
+{: .warning}
+> Item payloads will not be seen by Unreal's Garbage Collection, so you shouldn't store UObject references in them unless you are keeping them alive elsewhere.
+
 {: .advanced}
-> If you are using C++, you have access to payloads, which are shared objects carried by the conveyor Items. They are accessible via the `TSharedPtr<IConveyorPayloadInterface> FConveyorItem::Payload` property which they have. <br>
+> If you are using C++, you have full access to payloads, which are shared objects carried by the conveyor Items. They are accessible via the `TSharedPtr<IConveyorPayloadInterface> FConveyorItem::Payload` property which they have. <br>
 > In order for an object to be elegible as payload, it needs to implement `IConveyorPayloadInterface`. No further requirements. You can then use `MakeShared<T>` to create payloads.
+
+---
+
+[Conveyor Subsystem]: /AsyncConveyorPlugin/subsystem/
+[Conveyor Component Data]: /AsyncConveyorPlugin/component/#manually-registering-the-data
+[Item Payload]: /AsyncConveyorPlugin/item/#conveyor-item
+[Conveyor Statics]: /AsyncConveyorPlugin/conveyor-statics/
+[Conveyor Component]: /AsyncConveyorPlugin/component/
+[Conveyor Action]: /AsyncConveyorPlugin/node-actions/
+[Conveyor Actions]: /AsyncConveyorPlugin/node-actions/
