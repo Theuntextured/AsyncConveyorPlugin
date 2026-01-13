@@ -1,7 +1,7 @@
 ---
 title: Conveyor Statics Library
 layout: page
-nav_order: 7
+nav_order: 6
 ---
 
 # Conveyor Statics Library
@@ -10,19 +10,30 @@ nav_order: 7
 
 **Conveyor Statics** is a blueprint function library that can be used to safely interact with the simulation layer of the conveyor system.
 
-{: .warning}
-> Most functions in this library make use of locks (`UE::FSpinLock` to be precise) to prevent race conditions when trying to access/modify data on segments while they are being processed by the simulation layer. <br>
-> This can cause issues when a thread tries to lock a certain segment twice. The thread will wait for itself to unlock the thread, which will never happen because it is busy waiting, therefore leading to a [deadlock](https://en.wikipedia.org/wiki/Deadlock_(computer_science)). <br>
-> Given this, be careful about how you use the functions and know that each function will lock the relevant segment for the duration of its execution, and then unlock.
+---
+
+## Save System
 
 ---
 
-## Component Registration
+### Get Conveyor Save Data
+
+{bp_node_impure, Get Conveyor Save Data, target_static Conveyor Statics, out_pin_struct Out Save Data}
+
+Waits for the current simulation tick to finish, flushes pending game thread actions, and returns save data.
+For more information, see [Saving and Loading].
+
+### Load Conveyor Save Data
+
+{bp_node_impure, Load Conveyor Save Data, target_static Conveyor Statics, pin_struct In Save Data, pin_interface Save Handler}
+
+Loads save data into the simulation. 
+The save handler is an optional parameter that defines the way item descriptors should be loaded. You should use this if your item descriptors are generated during runtime (not data assets).
+For more information, see [Saving and Loading].
+
+## Component Registration and Manipulation
 
 ---
-
-{: .todo}
-> Add event dispatcher to function for when the registration is done.
 
 ### Register Conveyor Component
 
@@ -35,9 +46,49 @@ Will also call any event bound to `On Register` when the component has been regi
 
 ### Unregister Conveyor Component
 
-{bp_node_impure, Unregister Conveyor Component, target_static Conveyor Statics, pin_struct Handle, out_pin_bool Return Value}
+{bp_node_impure, Unregister Conveyor Component, target_static Conveyor Statics, ref_pin_struct Handle, out_pin_bool Return Value}
 
 Unregisters a conveyor component via handle. returns true if successful.
+
+---
+
+### Is Conveyor Component Valid
+
+{bp_node_pure, Is Conveyor Component Valid, target_static Conveyor Statics, pin_struct In Handle, out_pin_bool Return Value}
+
+Returns true if the component associated to the handle is valid and registered.
+
+---
+
+### Set Conveyor Component Speed / Set Conveyor Component Spacing / Set Conveyor Component Rotation Speed
+
+{bp_node_impure, Set Conveyor Component Speed, target_static Conveyor Statics, pin_struct Component Handle, pin_float New Speed}
+{bp_node_impure, Set Conveyor Component Spacing, target_static Conveyor Statics, pin_struct Component Handle, pin_float New Spacing}
+{bp_node_impure, Set Conveyor Component Rotation Speed, target_static Conveyor Statics, pin_struct Component Handle, pin_float New Rotation Speed}
+
+Sets speed, spacing, and item rotation speed respectively for all segments associated with the component.
+
+---
+
+### Set Conveyor Component Item Rotation Type
+
+{bp_node_impure, Set Conveyor Component Item Rotation Type, target_static Conveyor Statics, pin_struct Handle, pin_enum New Rotation Type, pin_rotator Desired Rotation}
+
+Sets the item rotation type and desired rotation if the type is set to fixed for all segments associated with the component.
+
+{: .note}
+> `Fixed World` and `Fixed Local` make no difference in this case. The `Desired Rotation` will be interpreted as world space. 
+
+---
+
+### Get Conveyor Item At Location / Get Conveyor Item And Transform At Location
+
+{bp_node_pure, Get Conveyor Item At Location, target_static Conveyor Statics, pin_struct Component Handle, pin_vector Location, pin_float Tolerance, out_pin_int Out Item Index, out_pin_struct OutSegmentHandle
+{bp_node_pure, Get Conveyor Item And Transform At Location, target_static Conveyor Statics, pin_struct Component Handle, pin_vector Location, pin_float Tolerance, out_pin_int Out Item Index, out_pin_struct OutSegmentHandle, out_pin_transform Out Item Transform, pin_bool Include Item Additional Transform}
+
+Tries to find an item on a specified component with location being at most `Tolerance` distance away from the specified location. It returns the handle to the segment which the item is on and the item index (Invalid handle and index -1 if not found).
+
+The version which returns the transform is separate since it is more expensive to calculate and not always needed. `Include Item Additional Transform` will make it so the returned transform is the actual transform of the mesh, rather than of the item itself. This is affected by the transform of the item descriptor.
 
 ---
 
@@ -109,7 +160,7 @@ Returns the current input round-robin segment index for the target node. This in
 
 {bp_node_impure, Set Conveyor Node In Round Robin Index, target_static Conveyor Statics, pin_struct Node Handle, pin_int New Index}
 
-Sets the current node input round robin index. Must be a valid index for it to take action. This index determines what segment the node prefers to accept an item from next.
+Sets the current node input round-robin index. Must be a valid index for it to take action. This index determines what segment the node prefers to accept an item from next.
 
 ---
 
@@ -125,7 +176,7 @@ Returns the current output round-robin segment index for the target node. This i
 
 {bp_node_impure, Set Conveyor Node Out Round Robin Index, target_static Conveyor Statics, pin_struct Node Handle, pin_int New Index}
 
-Sets the current node output round robin index. Must be a valid index for it to take action. This index determines what segment the node prefers to send an item to next.
+Sets the current node output round-robin index. Must be a valid index for it to take action. This index determines what segment the node prefers to send an item to next.
 
 ---
 
@@ -148,7 +199,7 @@ Returns true if the segment was found, as well as its handle.
 {bp_node_impure, Set Conveyor Segment Speed, target_static Conveyor Statics, pin_struct Segment Handle, pin_float New Speed}
 {bp_node_pure, Get Conveyor Segment Speed, target_static Conveyor Statics, pin_struct Segment Handle, out_pin_float Return Value}
 
-Getter and setter for conveyor speed (in cm/s) via segment handle. 
+Getter and setter for conveyor speed (in cm/s) via a segment handle. 
 
 Cannot be negative.
 
@@ -159,7 +210,7 @@ Cannot be negative.
 {bp_node_impure, Set Conveyor Segment Spacing, target_static Conveyor Statics, pin_struct Segment Handle, pin_float New Spacing}
 {bp_node_pure, Get Conveyor Segment Spacing, target_static Conveyor Statics, pin_struct Segment Handle, out_pin_float Return Value}
 
-Getter and setter for conveyor item spacing (in cm) via segment handle. Cannot be <= 0. 
+Getter and setter for conveyor item spacing (in cm) via a segment handle. Cannot be <= 0. 
 
 {: .note}
 > Spacing is doubled when splitting to prevent one output from blocking the whole input even if the other outputs are clear.
@@ -167,9 +218,6 @@ Getter and setter for conveyor item spacing (in cm) via segment handle. Cannot b
 ---
 
 ### Set Conveyor Segment Item Rotation Speed / Get Conveyor Segment Item Rotation Speed
-
-{: .todo}
-> FIX THE FUNCTIONS! SIM LAYER USES RADIANS! NOT DEGREES!!!!
 
 {bp_node_impure, Set Conveyor Segment Item Rotation Speed, target_static Conveyor Statics, pin_struct Segment Handle, pin_float New Rotation Speed}
 {bp_node_pure, Get Conveyor Segment Item Rotation Speed, target_static Conveyor Statics, pin_struct Segment Handle, out_pin_float Return Value}
@@ -223,6 +271,9 @@ Returns the found item (invalid item if not found), the item index (-1 if not fo
 
 Gets the item from a conveyor belt from an index. Returns an invalid item if the index is not valid.
 
+{: .note}
+> The order if items in a segment is given by their position. The first item in the array is the frontmost item.
+
 ---
 
 ### Get Conveyor Segment Item And Transform
@@ -274,7 +325,7 @@ Returns true if the change was successful and false if the index was invalid or 
 
 {bp_node_impure, Attempt Insert Conveyor Item To Segment, target_static Conveyor Statics, pin_struct Segment Handle, pin_struct Item, out_pin_bool Return Value}
 
-Attempts to insert an item into the given segment. Returns true if the insertion was successful. An unsuccessful insertion occurs when the handle is invalid, the item is invalid or if there was not enough space for the item.
+Attempts to insert an item into the given segment. Returns true if the insertion was successful. An unsuccessful insertion occurs when the handle is invalid, the item is invalid, or if there was not enough space for the item.
 
 The item will be inserted at the beginning of the segment.
 
@@ -296,19 +347,65 @@ Returns `nullptr` if the node was not found or if the node does not have any act
 
 ---
 
+### Get Conveyor Node Action From Class
+
+{bp_node_pure, Get Conveyor Node Action From Class, target_static Component Handle, pin_class Action Class, out_pin_object Return Value}
+
+This function will search for the action associated to a conveyor component by its class. It will include subclasses as well.
+
+If multiple actions matching the class filter are present, it will return the first one found.
+
+Returns `nullptr` if no action was found.
+
+---
+
+### Get Conveyor Node Actions From Class
+
+{bp_node_pure, Get Conveyor Node Actions From Class, target_static Component Handle, pin_class Action Class, out_pin_array_object Return Value}
+
+This function will search for all actions associated to a conveyor component by its class. It will include subclasses as well.
+
+---
+
 ## Item Functions
 
 ---
 
-### Set Conveyor Item Payload / Get Conveyor Item Payload
+### Register Conveyor Item Type
 
-{bp_node_impure, Set Conveyor Item Payload, target_static Conveyor Statics, pin_ref_struct Item, pin_struct Data}
-{bp_node_pure, Get Conveyor Item Payload, target_static Conveyor Statics,pin_struct Item, out_pin_struct Return Value}
+{bp_node_impure, Register Conveyor Item Type, target_static Conveyor Statics, pin_interface Item Type}
 
-Default implementations for [item payload] get/set. These treat the item payloads as instanced structs. This is data which is carried with the conveyor item. 
+Registers a conveyor item type with the system. While this is not necessary, it is recommended, especially the items are generated at runtime and garbage collection could cause issues.
 
-{: .warning}
-> Item payloads are not seen by Unreal's Garbage collection, meaning that you shouldnt store UObject references within them unless you are keeping the actual object alive elsewhere (by keeping a reference to it).
+This should be called once per item type per play session. Later calls are ignored.
+
+---
+
+### Is Conveyor Item Valid
+
+{bp_node_pure, Is Conveyor Item Valid, target_static Conveyor Statics, pin_struct Item, out_pin_bool Return Value}
+
+Returns true if the item is valid (Has a valid type assigned)
+
+---
+
+### Invalidate Conveyor Item
+
+{bp_node_impure, Invalidate Conveyor Item, target_static Conveyor Statics, ref_pin_struct Item}
+
+Invalidates the item, setting the type to null.
+
+---
+
+## Misc
+
+---
+
+### Get Conveyor Delta Time
+
+{bp_node_pure, Get Conveyor Delta Time, target_static Conveyor Statics, out_pin_float Return Value}
+
+Returns the delta time for the last simulation frame in seconds. This is different from the global world delta time, since the conveyor system can skip ticks.
 
 ---
 

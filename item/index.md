@@ -16,7 +16,7 @@ nav_order: 4
 
 ## Conveyor Item Descriptor
 
-Any UObject can be a descriptor, but it is suggested that data assets are used.
+Any UObject can be a descriptor, but it is suggested that data assets (`UDataAsset` or `UPrimaryDataAsset`) are used.
 
 In order for an object to be considered a descriptor, it must implement `Conveyor Item Interface` and it must override the `GetItemDescriptor()` function.
 
@@ -26,33 +26,29 @@ The data required is a `Conveyor Item Descriptor` struct, which is composed as f
 
 ![Conveyor Item Descriptor](../assets/images/conveyor_item_data_structure.png)
 
-| Property | Type | Description |
-|:---------|:-----|:------------|
-| Item Name | Name | The unique identifier for the item. If two items have the same name, they will be taken as the same item. |
-| Mesh | Static Mesh | The visual mesh for the item. |
-| Local Mesh Transform | Transform | The local transform of the mesh. | 
-| Material Overrides | Material Interface Array | Material overrides for the mesh |
+| Property             | Type                     | Description                                                                                               |
+|:---------------------|:-------------------------|:----------------------------------------------------------------------------------------------------------|
+| Item Name            | Name                     | The unique identifier for the item. If two items have the same name, they will be taken as the same item. |
+| Mesh                 | Static Mesh              | The visual mesh for the item.                                                                             |
+| Local Mesh Transform | Transform                | The local transform of the mesh.                                                                          | 
+| Material Overrides   | Material Interface Array | (Optional) Material overrides for the mesh.                                                               |
+
+You can manually register item types with the system using the `Register Conveyor Item Type` function from the [Conveyor Statics] library. 
+This will allow the system to keep the object reference alive for the duration of the level-s lifetime.
+While this is not required, it is recommended to do so to avoid garbage collection issues, especially if the item types is dynamically generated (not a data asset).
+
+{bp_node_impure, Register Conveyor Item Type, target_static Conveyor Statics, pin_interface Item Type, out_pin_bool Return Value}
+
+The function returns true if the item type was successfully registered, false otherwise (if the passed object does not implement the required interface or if the object is invalid).
 
 ## Conveyor Item
 
-Conveyor items are simple structures. They store a `Conveyor Item Interface` object reference (in the form of a `TScriptInterface`) and a `TSharedPtr<IConveyorPayloadInterface> Payload`, accessible via C++, or via default implementation using the [Conveyor Statics] library.
+Conveyor items are simple structures. They store a `Conveyor Item Interface` object reference (in the form of a `TScriptInterface`) and a `Payload` which you can use to stora any custom data you need in the form of a [FInstancedStruct].
 
-Creating and invalidating items is as simple as setting the `Item Data` property to whatever you want, null if you want to invalidate the item.
-
-With the default implementation for payloads, you can get and set payloads with the use of the `Instanced Struct` type, as follows:
-
-{bp_node_impure, Set Item Payload, target_static Conveyor Statics, ref_pin_struct Item, pin_struct Data}
-{bp_node_pure, Get Item Payload, target_static Conveyor Statics, pin_struct Item, out_pin_struct Return Value}
-
-{: .warning}
-> Be mindful that if you create your custom implementation of payloads, the default one should NOT be used in the same project, as it will cause crashes.
+Creating and invalidating items is as simple as setting the `Item Data` property to whatever you want, null if you want to invalidate the item (Or use the `Invalidate Conveyor Item` function from the [Conveyor Statics] library).
 
 {: .warning}
 > Item payloads will not be seen by Unreal's Garbage Collection, so you shouldn't store UObject references in them unless you are keeping them alive elsewhere.
-
-{: .advanced}
-> If you are using C++, you have full access to payloads, which are shared objects carried by the conveyor Items. They are accessible via the `TSharedPtr<IConveyorPayloadInterface> FConveyorItem::Payload` property which they have. <br>
-> In order for an object to be elegible as payload, it needs to implement `IConveyorPayloadInterface`. No further requirements. You can then use `MakeShared<T>` to create payloads.
 
 ---
 
@@ -63,3 +59,4 @@ With the default implementation for payloads, you can get and set payloads with 
 [Conveyor Component]: /AsyncConveyorPlugin/component/
 [Conveyor Action]: /AsyncConveyorPlugin/node-actions/
 [Conveyor Actions]: /AsyncConveyorPlugin/node-actions/
+[FInstancedStruct]: https://dev.epicgames.com/documentation/en-us/unreal-engine/BlueprintAPI/Utilities/InstancedStruct

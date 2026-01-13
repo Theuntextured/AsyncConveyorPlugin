@@ -2,22 +2,27 @@ document.addEventListener("DOMContentLoaded", async function() {
     
     // --- Configuration ---
     const pinColors = {
-        'exec':   '#FFFFFF', // White
-        'bool':   '#920101', // Red
-        'byte':   '#006575', // Dark Cyan
-        'int':    '#18E1A6', // Cyan-Green
-        'float':  '#9EEF42', // Lime
-        'name':   '#C673E6', // Violet
-        'string': '#EB00D6', // Magenta
-        'text':   '#E2758F', // Pinkish
-        'vector': '#FBC204', // Yellow
-        'rotator':'#989BF9', // Purple-Blue
-        'transform':'#F67608',// Orange
-        'object': '#00A6F6', // Blue (Object)
-        'class':  '#5900B5',  // Deep Purple
-        'struct': '#2C3392',
-        'interface': '#D3F19B',
-        'event': '#FF0201'
+        'exec':   '#FFFFFFFF',
+        'bool':   '#950000FF',
+        'byte':   '#006F65FF',
+        'enum':   '#006F65FF',
+        'int':    '#1FE3AFFF',
+        'int64':  '#ACE3AFFF',
+        'float':  '#38D500FF',
+        'name':   '#CD82FFFF',
+        'string': '#FF00D4FF',
+        'text':   '#E77CAAFF',
+        'vector': '#FFCA23FF',
+        'rotator':'#A0B4FFFF',
+        'transform':'#FF7300FF',
+        'object': '#00AAF5FF',
+        'soft_object': '#95FFFFFF',
+        'soft_class': '#FF95FFFF',
+        'class':  '#5900BCFF',
+        'struct': '#0059CBFF',
+        'interface': '#F1FFAAFF',
+        'event': '#FF3838FF',
+        'wildcard': '#817A7AFF'
     };
 
     const PATH_EXEC = '/AsyncConveyorPlugin/assets/images/bp_pin_exec.svg';
@@ -61,7 +66,7 @@ document.addEventListener("DOMContentLoaded", async function() {
             .replace('array_', '')
             .replace('event_', '')
             .replace('pin_', '');
-        let hex = pinColors[colorKey] || '#cccccc';
+        let hex = pinColors[colorKey] || pinColors['wildcard'];
         
         // Choose SVG Template
         let isArray = typeString.includes('array_');

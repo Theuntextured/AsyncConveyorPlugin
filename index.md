@@ -9,7 +9,7 @@ nav_order: 1
 
 "Async Conveyor Plugin" is a plugin for Unreal Engine made in C++. The tool is available on Fab [here](https://www.fab.com/listings/7ebfd4f3-eec3-4204-82aa-98b7ff01ec5f).
 
-This page is about how you can implement the plugin into your project.
+This wiki is about how you can implement the plugin into your project.
 
 [Download the Demo Project](https://github.com/Theuntextured/AsyncConveyorPlugin/releases/tag/v3.0.0)
 
