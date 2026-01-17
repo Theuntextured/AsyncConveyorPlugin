@@ -83,12 +83,24 @@ Sets the item rotation type and desired rotation if the type is set to fixed for
 
 ### Get Conveyor Item At Location / Get Conveyor Item And Transform At Location
 
-{bp_node_pure, Get Conveyor Item At Location, target_static Conveyor Statics, pin_struct Component Handle, pin_vector Location, pin_float Tolerance, out_pin_int Out Item Index, out_pin_struct OutSegmentHandle
+{bp_node_pure, Get Conveyor Item At Location, target_static Conveyor Statics, pin_struct Component Handle, pin_vector Location, pin_float Tolerance, out_pin_int Out Item Index, out_pin_struct OutSegmentHandle}
 {bp_node_pure, Get Conveyor Item And Transform At Location, target_static Conveyor Statics, pin_struct Component Handle, pin_vector Location, pin_float Tolerance, out_pin_int Out Item Index, out_pin_struct OutSegmentHandle, out_pin_transform Out Item Transform, pin_bool Include Item Additional Transform}
 
 Tries to find an item on a specified component with location being at most `Tolerance` distance away from the specified location. It returns the handle to the segment which the item is on and the item index (Invalid handle and index -1 if not found).
 
 The version which returns the transform is separate since it is more expensive to calculate and not always needed. `Include Item Additional Transform` will make it so the returned transform is the actual transform of the mesh, rather than of the item itself. This is affected by the transform of the item descriptor.
+
+---
+
+### Get Conveyor Node At Location
+
+{bp_node_pure, Get Conveyor Node At Location, target_static Conveyor Statics, pin_struct Component Handle, pin_vector Location, pin_float Tolerance, out_pin_struct Out Node Handle, out_pin_bool Return Value}
+
+Tries to get a conveyor node at the specified location from a component handle with a given tolerance. 
+
+If `Tolerance < 0`, it will return the closest node to the specified location. 
+
+Returns true if a node was found, false otherwise.
 
 ---
 

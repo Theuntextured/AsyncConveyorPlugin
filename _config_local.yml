@@ -3,3 +3,11 @@
 theme: just-the-docs
 remote_theme: null
 plugins: []
+
+sass:
+  style: compressed
+  quiet_deps: true
+  silence_deprecations:
+    - import
+    - color-functions
+    - global-builtin

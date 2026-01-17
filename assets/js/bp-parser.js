@@ -100,7 +100,7 @@ document.addEventListener("DOMContentLoaded", async function() {
     const regex = /\{bp_node_(pure|impure),\s*([^,]+)(?:,\s*(.*?))?\}/g;
 
     content.innerHTML = content.innerHTML.replace(regex, function(match, nodeType, title, argsString) {
-        
+
         let inputsHtml = '';
         let outputsHtml = '';
         let subtitleHtml = '';
@@ -161,6 +161,34 @@ document.addEventListener("DOMContentLoaded", async function() {
                     <div class="bp-inputs">${inputsHtml}</div>
                     <div class="bp-outputs">${outputsHtml}</div>
                 </div>
+            </div>
+        `;
+    });
+
+    const regexIframe = /\{bp\s+([^}]+)\}/g;
+
+    content.innerHTML = content.innerHTML.replace(regexIframe, function(match, rawId) {
+
+        // 1. Clean the ID: Remove whitespace and any accidental HTML tags (like <b> or <span>)
+        let id = rawId.trim().replace(/<[^>]*>/g, '');
+
+        // 2. Sanitize: If the "smart" keyboard turned a hyphen into an en-dash (–), fix it.
+        id = id.replace(/–/g, '--').replace(/—/g, '---');
+
+        return `
+            <div style="width: 100%; height: 600px; overflow: hidden; margin: 20px auto 40px auto; border-radius: 4px;">
+                <iframe 
+                    src="https://blueprintue.com/render/${id}/" 
+                    scrolling="no" 
+                    allowfullscreen 
+                    style="
+                        border: none !important; 
+                        width: 104% !important; 
+                        height: 400px !important; 
+                        margin-left: -2% !important; 
+                        margin-top: -2% !important;
+                    ">
+                </iframe>
             </div>
         `;
     });
