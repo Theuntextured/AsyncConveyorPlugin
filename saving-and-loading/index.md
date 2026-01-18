@@ -91,6 +91,4 @@ If you're working in C++, then you probably want to use the `FArchive` system to
 
 These functions will help you by converting `Conveyor Item Save Signature` to and from a string, which you can build and use however you need.
 
----
-
 [example project]: /AsyncConveyorPlugin/demo-project/

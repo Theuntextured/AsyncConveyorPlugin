@@ -61,8 +61,6 @@ In addition to the stress test, a [demo project] is available, which includes bo
 
 A more in-depth explanation of the demo project can be found [here](/AsyncConveyorPlugin/demo-project/).
 
----
-
 [Conveyor Subsystem]: /AsyncConveyorPlugin/subsystem/
 [Conveyor Component Data]: /AsyncConveyorPlugin/component/#manually-registering-the-data
 [Item Payload]: /AsyncConveyorPlugin/item/#conveyor-item

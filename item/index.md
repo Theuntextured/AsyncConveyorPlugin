@@ -50,9 +50,6 @@ Creating and invalidating items is as simple as setting the `Item Data` property
 {: .warning}
 > Item payloads will not be seen by Unreal's Garbage Collection, so you shouldn't store UObject references in them unless you are keeping them alive elsewhere.
 
----
-
-[Conveyor Subsystem]: /AsyncConveyorPlugin/subsystem/
 [Conveyor Component Data]: /AsyncConveyorPlugin/component/#manually-registering-the-data
 [Item Payload]: /AsyncConveyorPlugin/item/#conveyor-item
 [Conveyor Statics]: /AsyncConveyorPlugin/conveyor-statics/

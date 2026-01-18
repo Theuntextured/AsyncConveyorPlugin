@@ -1,5 +1,3 @@
-# _config_local.yml
-# This tells Jekyll to ignore the remote theme and use the local gem instead
 theme: just-the-docs
 remote_theme: null
 plugins: []

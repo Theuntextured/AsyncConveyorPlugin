@@ -8,13 +8,11 @@ nav_order: 6
 
 ---
 
-**Conveyor Statics** is a blueprint function library that can be used to safely interact with the simulation layer of the conveyor system.
+**Conveyor Statics** is a blueprint function library (Also useful in C++) that can be used to safely interact with the simulation layer of the conveyor system.
 
 ---
 
 ## Save System
-
----
 
 ### Get Conveyor Save Data
 
@@ -31,9 +29,9 @@ Loads save data into the simulation.
 The save handler is an optional parameter that defines the way item descriptors should be loaded. You should use this if your item descriptors are generated during runtime (not data assets).
 For more information, see [Saving and Loading].
 
-## Component Registration and Manipulation
-
 ---
+
+## Component Registration and Manipulation
 
 ### Register Conveyor Component
 
@@ -106,8 +104,6 @@ Returns true if a node was found, false otherwise.
 
 ## Node Functions
 
----
-
 ### Get Conveyor Node Handle
 
 {bp_node_pure, Get Conveyor Node Handle, target_static Conveyor Statics, pin_struct Component Handle, pin_name Node Name, out_pin_struct Out Handle, out_pin_bool Return Value}
@@ -150,7 +146,7 @@ Returns the world location of a node via handle.
 
 ---
 
-## Get Conveyor Node Segments / Get Conveyor Node In Segments / Get Conveyor Node Out Segments
+### Get Conveyor Node Segments / Get Conveyor Node In Segments / Get Conveyor Node Out Segments
 
 {bp_node_pure, Get Conveyor Node Segments, target_static Conveyor Statics, pin_struct Node Handle, out_pin_array_struct Return Value}
 {bp_node_pure, Get Conveyor Node In Segments, target_static Conveyor Statics, pin_struct Node Handle, out_pin_array_struct Return Value}
@@ -194,8 +190,6 @@ Sets the current node output round-robin index. Must be a valid index for it to 
 
 ## Segment Functions
 
----
-
 ### Get Conveyor Segment Handle
 
 {bp_node_pure, Get Conveyor Segment Handle, target_static Conveyor Statics, pin_struct Component Handle, pin_name Segment Name, out_pin_struct Out Handle, out_pin_bool Return Value}
@@ -238,7 +232,7 @@ Getters and setters for item rotation speed (in deg/s) on a specific segment (vi
 
 ---
 
-## Set Conveyor Segment Item Rotation Type
+### Set Conveyor Segment Item Rotation Type
 
 {bp_node_impure, Set Conveyor Segment Item Rotation Type, target_static Conveyor Statics, pin_struct Segment Handle, pin_enum New Rotation Type, pin_rotator Desired Rotation}
 
@@ -345,8 +339,6 @@ The item will be inserted at the beginning of the segment.
 
 ## Node Action Functions
 
----
-
 ### Get Conveyor Node Action
 
 {bp_node_pure, Get Conveyor Node Action, target_static Component Handle, pin_struct Node Name, out_pin_object Return Value}
@@ -381,8 +373,6 @@ This function will search for all actions associated to a conveyor component by 
 
 ## Item Functions
 
----
-
 ### Register Conveyor Item Type
 
 {bp_node_impure, Register Conveyor Item Type, target_static Conveyor Statics, pin_interface Item Type}
@@ -411,17 +401,13 @@ Invalidates the item, setting the type to null.
 
 ## Misc
 
----
-
 ### Get Conveyor Delta Time
 
 {bp_node_pure, Get Conveyor Delta Time, target_static Conveyor Statics, out_pin_float Return Value}
 
 Returns the delta time for the last simulation frame in seconds. This is different from the global world delta time, since the conveyor system can skip ticks.
 
----
 
-[Conveyor Subsystem]: /AsyncConveyorPlugin/subsystem/
 [Conveyor Component Data]: /AsyncConveyorPlugin/component/#manually-registering-the-data
 [Item Payload]: /AsyncConveyorPlugin/item/#conveyor-item
 [Conveyor Statics]: /AsyncConveyorPlugin/conveyor-statics/

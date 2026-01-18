@@ -9,15 +9,16 @@ nav_order: 3
 ---
 
 {: .important}
-> There are **two** ways of creating and registering a conveyor layout.<br>
-> The **first** way is by using a Conveyor Component. <br>
-> The **second**, is by manually creating a `ConveyorComponentData` structure and registering it manually with the [Conveyor Subsystem].<br>
+> There are **two** ways of creating and registering a conveyor layout.
+> 
+> The **first** way is by using a Conveyor Component.
+> 
+> The **second**, is by manually creating a `ConveyorComponentData` structure and registering it manually.
 
 ---
 
 ## Using the Conveyor Component
 
----
 
 To add a conveyor component to an actor, add a component as you would with any other, and then start with setting it up.
 
@@ -30,7 +31,7 @@ Firstly, there are some properties that can be set in the details panel:
 | Item Rotation Speed                     | float                       | The speed at which items will follow their desired rotation                                                                                                                                                                                                                                                                                                                                                                                             | 360 deg/s        |
 | Item Rotation Type                      | Conveyor Item Rotation Type | Can be `Follow Segment` (The item orient itself towards the direction of motion), `Fixed Local` (Rotation is fixed  relative to the component) or `Fixed World` (Rotation is fixed relative to the world).                                                                                                                                                                                                                                              | `Follow Segment` |
 | Desired Item Rotation                   | Rotator                     | Only visible if rotation type is fixed. This is the rotation which the item will keep                                                                                                                                                                                                                                                                                                                                                                   | `{0, 0, 0}`      |
-| Auto Register                           | bool                        | Having this on will automatically register the component with the [Conveyor Subsystem]. If false, you will need to manually call the `RegisterConveyor()` and `UnregisterConveyor()` functions.                                                                                                                                                                                                                                                         | true             |
+| Auto Register                           | bool                        | Having this on will automatically register the component with the Subsystem. If false, you will need to manually call the `RegisterConveyor()` and `UnregisterConveyor()` functions.                                                                                                                                                                                                                                                                    | true             |
 | Clear Component Data After Registration | bool                        | Having this on will clear local registration data since it will no longer be needed. This frees up memory and improves performance. I suggest you keep this on unless you have a reason otherwise. (Usually for debugging purposes)                                                                                                                                                                                                                     | true             |
 | Conveyor Handle                         | Conveyor Component Handle   | Not found in the details panel, but is exposed on spawn and blueprint read-write. You can either spawn the component with a valid handle (Set it before Begin Play, or before manually registering), which will link it to the simulation layer without re-registering, or if initially invalid, it will be validated on registration and can then be used to interact with the simulation layer via the [Conveyor Statics] blueprint function library. | Invalid Handle   |
 | On Conveyor Component Registered        | Event - void()              | Once the component is registered (both successfully and unsuccessfully), the event will be called. (On Game Thread). This is usually found at the bottom of the details panel, and is marked with a `+` button to implement/bind the event.                                                                                                                                                                                                             |                  |
@@ -49,7 +50,7 @@ Right-clicking on a selection will give a context menu. This will change dependi
 
 ![Conveyor Node Context Menu](../assets/images/conveyor_node_context_menu.png)
 
-| Function Name                 | Desctiption                                                                                                       | Default Keybind |
+| Function Name                 | Description                                                                                                       | Default Keybind |
 |:------------------------------|:------------------------------------------------------------------------------------------------------------------|:----------------|
 | Unique Name                   | Give the selected node a unique name, which can be used to interact with after it has been registered.            |                 |
 | Add Leading Node              | Add a node in front of the selected one and connect them.                                                         | N               |
@@ -96,8 +97,6 @@ At the bottom of the context menu is a selector for visualization modes.
 
 ## Manually Registering the Data
 
----
-
 {: .note}
 > This is more advanced and harder to set up than the component method but allows for more modularity with the conveyors.
 
@@ -117,9 +116,6 @@ You can then delete the "virtual conveyor component" using the `Unregister Conve
 
 {bp_node_impure, Unregister Component, target_static Conveyor Statics, pin_struct Handle, out_pin_bool Return Value}
 
----
-
-[Conveyor Subsystem]: /AsyncConveyorPlugin/subsystem/
 [Conveyor Component Data]: /AsyncConveyorPlugin/component/#manually-registering-the-data
 [Item Payload]: /AsyncConveyorPlugin/item/#conveyor-item
 [Conveyor Statics]: /AsyncConveyorPlugin/conveyor-statics/

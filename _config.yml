@@ -32,3 +32,13 @@ url: https://theuntextured.github.io
 aux_links:
   FAB Plugin: https://www.fab.com/listings/7ebfd4f3-eec3-4204-82aa-98b7ff01ec5f
   v2.0 Docs: https://github.com/Theuntextured/AsyncConveyorPlugin/wiki
+
+search_enabled: true
+search:
+  # Split the search index into smaller chunks if you have a massive site
+  tokenizer_separator: /[\s/]+/
+  # Display the full URL in search results
+  rel_url: true
+  # Highlight search terms
+  heading_level: 3
+  previews: 5

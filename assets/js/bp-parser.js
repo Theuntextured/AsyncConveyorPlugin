@@ -95,7 +95,7 @@ document.addEventListener("DOMContentLoaded", async function() {
         }
     }
 // --- 3. Parser Loop ---
-    const content = document.body;
+    const content = document.querySelector('.main-content') || document.body;
     // Matches {bp_node_TYPE, Title, ...args}
     const regex = /\{bp_node_(pure|impure),\s*([^,]+)(?:,\s*(.*?))?\}/g;
 

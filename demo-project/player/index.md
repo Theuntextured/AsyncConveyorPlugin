@@ -61,5 +61,3 @@ If the item is valid, it will use `Extract Conveyor Item` to remove it from the 
 This is because of the multithreaded nature of the plugin. In between the time when the first check was made and the extraction occurs, the item could have been removed from the belt, or moved to another index.
 > 
 To check this, we check every time item validation is important.
-
----

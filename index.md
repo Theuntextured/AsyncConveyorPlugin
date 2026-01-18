@@ -15,9 +15,7 @@ This wiki is about how you can implement the plugin into your project.
 
 ![Logo](/AsyncConveyorPlugin/assets/images/icon.svg) 
 
----
 
-[Conveyor Subsystem]: /AsyncConveyorPlugin/subsystem/
 [Conveyor Component Data]: /AsyncConveyorPlugin/component/#manually-registering-the-data
 [Item Payload]: /AsyncConveyorPlugin/item/#conveyor-item
 [Conveyor Statics]: /AsyncConveyorPlugin/conveyor-statics/

@@ -54,7 +54,7 @@ Actions can be set active and inactive in the simulation layer if not stateless 
 
 ## Action Functions
 
----
+### Insert Item
 
 {bp_node_impure, Insert Item, target_static Conveyor Node Action, pin_struct Node, out_pin_struct Return Value}
 
@@ -63,6 +63,8 @@ Actions can be set active and inactive in the simulation layer if not stateless 
 This function is called whenever there is space for an insertion on the target node. This will be called every tick as long as there is space for the insertion and the action is active.
 
 ---
+
+### Process Item
 
 {bp_node_impure, Process Item, target_static Conveyor Node Action, ref_pin_struct Item, pin_struct Node, out_pin_bool Should Item Proceed}
 
@@ -74,6 +76,8 @@ The return value (`Should Item Proceed`) determines whether the item should be a
 
 ---
 
+### On Item Crossed
+
 {bp_node_impure, On Item Crossed, target_static Conveyor Node Action, pin_struct Item, pin_struct Node}
 
 `On Item Crossed` Inputs a const reference of the item which just crossed the node and the handle to the node. It returns nothing.
@@ -82,6 +86,8 @@ It is called **after** the item has crossed over the node. In contrast to `Proce
 
 ---
 
+### Tick
+
 {bp_node_impure, Tick, target_static Conveyor Node Action, pin_struct Node}
 
 `Tick` will simply input the node handle and return nothing.
@@ -89,6 +95,8 @@ It is called **after** the item has crossed over the node. In contrast to `Proce
 It will be called once per node per tick.
 
 ---
+
+### Select Round Robin Input/Output
 
 {bp_node_impure, Select Round Robin Input, target_static Conveyor Node Action, pin_struct Node, out_pin_int32 Return Value}
 {bp_node_impure, Select Round Robin Output, target_static Conveyor Node Action, pin_struct Node, out_pin_int32 Return Value}
@@ -102,11 +110,8 @@ Returning any invalid index will cause the node to not let any items pass throug
 ---
 
 {: .note}
-> Conveyor actions have world context access only after being registered with the subsystem, meaning that the `GetWorld()` function can be called on it and it will return a valid world only after being registered.
+> Conveyor actions have world context access only after being registered with the Subsystem, meaning that the `GetWorld()` function can be called on it and it will return a valid world only after being registered.
 
----
-
-[Conveyor Subsystem]: /AsyncConveyorPlugin/subsystem/
 [Conveyor Component Data]: /AsyncConveyorPlugin/component/#manually-registering-the-data
 [Item Payload]: /AsyncConveyorPlugin/item/#conveyor-item
 [Conveyor Statics]: /AsyncConveyorPlugin/conveyor-statics/

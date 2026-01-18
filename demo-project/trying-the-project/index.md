@@ -55,8 +55,6 @@ I created all assets in the demo project (meshes and materials), and you are fre
 
 ## What is Available?
 
----
-
 In the level, you can find the following "production chain":
 
 ![Demo Map Overview](../../assets/images/demo_map.png)
@@ -114,7 +112,6 @@ The final mode is straightforward. You point at a structure and use:
 - `RMB` to half the conveyor speed
 - `LMB` to double the conveyor speed
 
----
 
 <style>
   .tree-code pre, .tree-code code {
