@@ -176,7 +176,7 @@ document.addEventListener("DOMContentLoaded", async function() {
         id = id.replace(/–/g, '--').replace(/—/g, '---');
 
         return `
-            <div style="width: 100%; height: 600px; overflow: hidden; margin: 20px auto 40px auto; border-radius: 4px;">
+            <div style="width: 100%; height: 400px; overflow: hidden; margin: 20px auto 40px auto; border-radius: 4px;">
                 <iframe 
                     src="https://blueprintue.com/render/${id}/" 
                     scrolling="no" 

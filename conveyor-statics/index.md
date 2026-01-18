@@ -18,7 +18,7 @@ nav_order: 6
 
 ### Get Conveyor Save Data
 
-{bp_node_impure, Get Conveyor Save Data, target_static Conveyor Statics, out_pin_struct Out Save Data}
+{bp_node_impure, Get Conveyor Save Data, target_static Conveyor Statics, pin_interface Save Handler, out_pin_struct Out Save Data}
 
 Waits for the current simulation tick to finish, flushes pending game thread actions, and returns save data.
 For more information, see [Saving and Loading].

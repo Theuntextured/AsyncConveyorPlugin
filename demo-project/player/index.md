@@ -47,6 +47,19 @@ The logic for picking up items is divided into two parts:
 - The player character blueprint itself
 - The `BP_StructureBase` blueprint logic (Found under `Content/Demo/Blueprints/Bases/BP_StructureBase`)
 
-The player side, simply performs the line trace and calls the following on the hit structure:
+The player side simply performs the line trace and calls the following on the hit structure:
 
 {bp lqo0il-3}
+
+The function inputs the hit result, and from there uses the `Get Conveyor Item At Location` function to find the item.
+
+If the item is valid, it will use `Extract Conveyor Item` to remove it from the belt, and return the item. In this demo, the item data is simply printed on-screen.
+
+{: .note}
+> If you look at the blueprint, we have two checks to see if the item is valid. First, when we get the item, then when we actually extracted it.
+> 
+This is because of the multithreaded nature of the plugin. In between the time when the first check was made and the extraction occurs, the item could have been removed from the belt, or moved to another index.
+> 
+To check this, we check every time item validation is important.
+
+---
