@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", async function() {
-    
+
     // --- Configuration ---
     const pinColors = {
         'exec':   '#FFFFFFFF',
@@ -25,6 +25,7 @@ document.addEventListener("DOMContentLoaded", async function() {
         'wildcard': '#817A7AFF'
     };
 
+    // Paths to your SVGs
     const PATH_EXEC = '/AsyncConveyorPlugin/assets/images/bp_pin_exec.svg';
     const PATH_DATA = '/AsyncConveyorPlugin/assets/images/bp_pin_data.svg';
     const PATH_REF = '/AsyncConveyorPlugin/assets/images/bp_pin_ref.svg';
@@ -32,164 +33,127 @@ document.addEventListener("DOMContentLoaded", async function() {
     const PATH_EVENT = '/AsyncConveyorPlugin/assets/images/bp_pin_event.svg';
 
     // --- 1. Fetch SVGs ---
-    let execSvgTemplate = '';
-    let dataSvgTemplate = '';
-    let refSvgTemplate = '';
-    let arraySvgTemplate = '';
-    let eventSvgTemplate = '';
+    let execSvgTemplate = '', dataSvgTemplate = '', refSvgTemplate = '', arraySvgTemplate = '', eventSvgTemplate = '';
 
     try {
         const [execRes, dataRes, refRes, arrayRes, eventRes] = await Promise.all([
-            fetch(PATH_EXEC),
-            fetch(PATH_DATA),
-            fetch(PATH_REF),
-            fetch(PATH_ARRAY),
-            fetch(PATH_EVENT)
+            fetch(PATH_EXEC), fetch(PATH_DATA), fetch(PATH_REF), fetch(PATH_ARRAY), fetch(PATH_EVENT)
         ]);
-        if (!execRes.ok || !dataRes.ok || !refRes.ok || !arrayRes.ok || !eventRes.ok) throw new Error("Missing SVGs");
+        if (!execRes.ok) throw new Error("Missing SVGs");
+
         execSvgTemplate = await execRes.text();
         dataSvgTemplate = await dataRes.text();
         refSvgTemplate = await refRes.text();
         arraySvgTemplate = await arrayRes.text();
         eventSvgTemplate = await eventRes.text();
     } catch (err) {
-        console.error("SVG Fetch Failed.", err);
+        console.warn("Blueprint Parser: SVGs failed to load. Nodes will lack icons.", err);
         return;
     }
 
     // --- 2. Helper: Generate Pin HTML ---
-    function createPinHtml(typeString, name, isOutput, isRef) {
-        // Parse type: "pin_float" -> "float"
-        let colorKey = typeString
-            .replace('out_pin_', '')
-            .replace('ref_pin_', '')
-            .replace('array_', '')
-            .replace('event_', '')
-            .replace('pin_', '');
+    function createPinHtml(typeString, name, isOutput) {
+        let colorKey = typeString.replace(/^(out_|ref_|array_|event_|pin_)/, '');
         let hex = pinColors[colorKey] || pinColors['wildcard'];
-        
-        // Choose SVG Template
+
         let isArray = typeString.includes('array_');
         let isEvent = typeString.includes('event');
         let isExec = (colorKey === 'exec');
-        let rawSvg = 
-        isExec ? execSvgTemplate : 
-            (isRef ? refSvgTemplate : 
-                (isArray ? arraySvgTemplate : 
+        let isRef = typeString.includes('ref_');
+
+        let rawSvg = isExec ? execSvgTemplate :
+            (isRef ? refSvgTemplate :
+                (isArray ? arraySvgTemplate :
                     (isEvent ? eventSvgTemplate : dataSvgTemplate)));
-        
-        // Inject Color
+
         let coloredSvg = rawSvg.replace(/{{COLOR}}/g, hex);
-        
-        // Build Structure
         let iconHtml = `<div class="pin-icon">${coloredSvg}</div>`;
         let textHtml = `<span>${name}</span>`;
 
-        // Output pins have text on LEFT, icon on RIGHT
-        if (isOutput) {
-            return `<div class="bp-pin">${textHtml}${iconHtml}</div>`;
-        } 
-        // Input pins have icon on LEFT, text on RIGHT
-        else {
-            return `<div class="bp-pin">${iconHtml}${textHtml}</div>`;
-        }
+        return isOutput ?
+            `<div class="bp-pin">${textHtml}${iconHtml}</div>` :
+            `<div class="bp-pin">${iconHtml}${textHtml}</div>`;
     }
-// --- 3. Parser Loop ---
-    const content = document.querySelector('.main-content') || document.body;
-    // Matches {bp_node_TYPE, Title, ...args}
-    const regex = /\{bp_node_(pure|impure),\s*([^,]+)(?:,\s*(.*?))?\}/g;
 
-    content.innerHTML = content.innerHTML.replace(regex, function(match, nodeType, title, argsString) {
-
+    // --- 3. Render Node Logic ---
+    // This logic mimics your original regex callback but creates a DOM element instead of a string
+    function renderNode(match, nodeType, title, argsString) {
         let inputsHtml = '';
         let outputsHtml = '';
         let subtitleHtml = '';
-        
-        // --- A. Auto-Inject Execution Pins for Impure Nodes ---
+
         if (nodeType === 'impure') {
-            inputsHtml += createPinHtml('pin_exec', '', false); 
-            outputsHtml += createPinHtml('pin_exec', '', true); 
+            inputsHtml += createPinHtml('pin_exec', '', false);
+            outputsHtml += createPinHtml('pin_exec', '', true);
         }
 
-        // --- B. Process Arguments (Subtitle + Pins) ---
         if (argsString) {
-            // Split by comma, trimming whitespace
             let args = argsString.split(',').map(s => s.trim());
-            
-            // Check for Subtitle (Must be the FIRST argument)
-            // Rule: Starts with "Target is" (case insensitive)
+
             if (args.length > 0 && args[0].toLowerCase().startsWith("target is")) {
                 subtitleHtml = `<span class="bp-subtitle">${args[0]}</span>`;
-                args.shift(); // Remove subtitle from pins list
+                args.shift();
             }
 
-            // Process remaining args as pins
             args.forEach(pin => {
-                // Example: "pin_float Speed"
                 let firstSpace = pin.indexOf(' ');
-                if (firstSpace === -1) return; 
+                if (firstSpace === -1) return;
 
-                let typeCode = pin.substring(0, firstSpace).toLowerCase(); 
-                let paramName = pin.substring(firstSpace + 1); 
-                
-                if(typeCode == "target" || typeCode == "target_static") {
+                let typeCode = pin.substring(0, firstSpace).toLowerCase();
+                let paramName = pin.substring(firstSpace + 1);
+
+                if(typeCode === "target" || typeCode === "target_static") {
                     subtitleHtml = `<span class="bp-subtitle">Target is ${paramName}</span>`;
-                    if (typeCode == "target_static") return;
+                    if (typeCode === "target_static") return;
                     typeCode = "pin_object";
                     paramName = "Target";
                 }
-                
+
                 let isOutput = typeCode.startsWith('out_');
-                let isRef = typeCode.startsWith("ref_")
-                let html = createPinHtml(typeCode, paramName, isOutput, isRef);
+                // Note: isRef logic is handled inside createPinHtml by regex checking the typeCode
+                let html = createPinHtml(typeCode, paramName, isOutput);
 
                 if (isOutput) outputsHtml += html;
                 else inputsHtml += html;
             });
         }
 
-        // --- C. Build Final Node ---
-        return `
-            <div class="bp-node ${nodeType}" contenteditable="false">
-                <div class="bp-header">
-                    <div class="bp-title-container">
-                        <span class="bp-title">${title}</span>
-                        ${subtitleHtml}
-                    </div>
-                </div>
-                <div class="bp-body">
-                    <div class="bp-inputs">${inputsHtml}</div>
-                    <div class="bp-outputs">${outputsHtml}</div>
+        // Create the container div
+        const div = document.createElement('div');
+        div.className = `bp-node ${nodeType}`;
+        div.contentEditable = "false";
+        div.innerHTML = `
+            <div class="bp-header">
+                <div class="bp-title-container">
+                    <span class="bp-title">${title}</span>
+                    ${subtitleHtml}
                 </div>
             </div>
-        `;
-    });
-
-    const regexIframe = /\{bp\s+([^}]+)\}/g;
-
-    content.innerHTML = content.innerHTML.replace(regexIframe, function(match, rawId) {
-
-        // 1. Clean the ID: Remove whitespace and any accidental HTML tags (like <b> or <span>)
-        let id = rawId.trim().replace(/<[^>]*>/g, '');
-
-        // 2. Sanitize: If the "smart" keyboard turned a hyphen into an en-dash (–), fix it.
-        id = id.replace(/–/g, '--').replace(/—/g, '---');
-
-        return `
-            <div style="width: 100%; height: 400px; overflow: hidden; margin: 20px auto 40px auto; border-radius: 4px;">
-                <iframe 
-                    src="https://blueprintue.com/render/${id}/" 
-                    scrolling="no" 
-                    allowfullscreen 
-                    style="
-                        border: none !important; 
-                        width: 104% !important; 
-                        height: 400px !important; 
-                        margin-left: -2% !important; 
-                        margin-top: -2% !important;
-                    ">
-                </iframe>
+            <div class="bp-body">
+                <div class="bp-inputs">${inputsHtml}</div>
+                <div class="bp-outputs">${outputsHtml}</div>
             </div>
         `;
+        return div;
+    }
+
+    // --- 4. Main Processing Loop (Placeholder Hydration) ---
+    // We look for the hidden divs created by the Ruby plugin
+    const placeholders = document.querySelectorAll('.js-bp-node-placeholder');
+
+    placeholders.forEach(placeholder => {
+        const rawTag = placeholder.dataset.raw;
+        if (!rawTag) return;
+
+        // Regex to parse the content INSIDE the tag: {bp_node_TYPE, Title, Args}
+        const regex = /\{bp_node_(pure|impure),\s*([^,]+)(?:,\s*(.*?))?\}/;
+        const match = regex.exec(rawTag);
+
+        if (match) {
+            // Generate the Node
+            const newNode = renderNode(match[0], match[1], match[2], match[3]);
+            // Replace the hidden placeholder with the visible node
+            placeholder.replaceWith(newNode);
+        }
     });
 });
