@@ -21,6 +21,7 @@ nav_order: 2
 | Item Cull Distance              | Per Quality level Float | How far away will items be culled (hidden)?                                                                                                                                                 | 120m          |
 | High Priority Async Task        | bool                    | Should async conveyor processing be marked as high priority?                                                                                                                                | false         |
 | Warn Simulation Skipping Frames | bool                    | Should warn about conveyor processing skipping frames? (In the logs) If this happens it isn't a huge issue, but it can lead to visual lag for items on belts if several frames are skipped. | true          |
+| Worker Size                     | int                     | Advanced: Changes how many nodes/connections a single worker in a ParallelFor is in charge of. Can be changed using the `Conveyor.WorkerSize` console command.                              |               |
 
 
 [Conveyor Component Data]: /AsyncConveyorPlugin/component/#manually-registering-the-data

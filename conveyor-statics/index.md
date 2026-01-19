@@ -407,6 +407,20 @@ Invalidates the item, setting the type to null.
 
 Returns the delta time for the last simulation frame in seconds. This is different from the global world delta time, since the conveyor system can skip ticks.
 
+---
+
+### Get/Set Conveyor Time Dilation
+
+{bp_node_pure, Get Conveyor Time Dilation, target_static Conveyor Statics, out_pin_float Return Value}
+{bp_node_impure, Set Conveyor Time Dilation, target_static Conveyor Statics, pin_float In New Dilation}
+
+Gets or set time dilation for the conveyor system. 
+- A value of 1 will mean normal simulation speed. 
+- A value of 2 will run the simulation at twice the normal speed.
+- A value of 0.5 will run the simulation at half the normal speed.
+- A value of 0 will pause the simulation. (Registrations will still be processed, but no items will move and no node actions will be processed)
+
+The value is clamped between 0 and the world's maximum time dilation (Editable via [World Settings](https://dev.epicgames.com/documentation/en-us/unreal-engine/world-settings-in-unreal-engine))
 
 [Conveyor Component Data]: /AsyncConveyorPlugin/component/#manually-registering-the-data
 [Item Payload]: /AsyncConveyorPlugin/item/#conveyor-item

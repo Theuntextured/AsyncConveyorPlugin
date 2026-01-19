@@ -53,7 +53,13 @@ document.addEventListener("DOMContentLoaded", async function() {
 
     // --- 2. Helper: Generate Pin HTML ---
     function createPinHtml(typeString, name, isOutput) {
-        let colorKey = typeString.replace(/^(out_|ref_|array_|event_|pin_)/, '');
+        let colorKey = typeString
+            .replace("out_", "")
+            .replace("ref_", "")
+            .replace("array_", "")
+            .replace("event_", "")
+            .replace("pin_", "");
+        //let colorKey = typeString.replace(/^(out_|ref_|array_|event_|pin_)/, '');
         let hex = pinColors[colorKey] || pinColors['wildcard'];
 
         let isArray = typeString.includes('array_');
