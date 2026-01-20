@@ -130,10 +130,10 @@ The final mode is straightforward. You point at a structure and use:
 </style>
 
 
-[Resource Extractors]: ../structures/resource-extractor/index.md
-[Smart Splitter]: ../structures/smart-splitter/index.md
-[Containers]: ../structures/container/index.md
+[Resource Extractors]: ../structures/resource-extractor/resource-extractor.md
+[Smart Splitter]: ../structures/smart-splitter/smart-splitter.md
+[Containers]: ../structures/container/container.md
 [Crusher]: ../structures/crusher/index.md
-[Smelter]: ../structures/smelter/index.md
-[Press]: ../structures/press/index.md
-[Item Counter]: ../structures/item-counter/index.md
+[Smelter]: ../structures/smelter/smelter.md
+[Press]: ../structures/press/press.md
+[Item Counter]: ../structures/item-counter/item-counter.md
