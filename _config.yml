@@ -29,9 +29,17 @@ callouts:
 baseurl: /AsyncConveyorPlugin
 url: https://theuntextured.github.io
 
+permalink: pretty
+
+sass:
+  quiet_deps: true # https://github.com/just-the-docs/just-the-docs/issues/1541
+  silence_deprecations: ['import'] # https://github.com/just-the-docs/just-the-docs/issues/1607
+
 aux_links:
   FAB Plugin: https://www.fab.com/listings/7ebfd4f3-eec3-4204-82aa-98b7ff01ec5f
   v2.0 Docs: https://github.com/Theuntextured/AsyncConveyorPlugin/wiki
+
+aux_links_new_tab: true
 
 search_enabled: true
 search:
@@ -41,4 +49,38 @@ search:
   rel_url: true
   # Highlight search terms
   heading_level: 3
-  previews: 5
+  previews: 3
+
+exclude:
+  # from https://github.com/jekyll/jekyll/blob/master/lib/site_template/_config.yml:
+  - .sass-cache/
+  - .jekyll-cache/
+  - gemfiles/
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  # specific to the theme website:
+  - bin/
+  - lib/
+  - "*.gemspec"
+  - "*.gem"
+  - LICENSE.txt
+  - package.json
+  - package-lock.json
+  - Rakefile
+  - README.md
+  - CODE_OF_CONDUCT.md
+  - docker-compose.yml
+  - Dockerfile
+  # theme test code
+  - fixtures/
+  - spec/
+  - tmp
+  - .rspec
+  - LICENCE
+  - Build.bat
+

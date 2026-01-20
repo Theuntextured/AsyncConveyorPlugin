@@ -5,6 +5,7 @@ nav_order: 3
 ---
 
 # Creating Conveyors
+{: .no_toc }
 
 ---
 
@@ -14,6 +15,12 @@ nav_order: 3
 > The **first** way is by using a Conveyor Component.
 > 
 > The **second**, is by manually creating a `ConveyorComponentData` structure and registering it manually.
+
+## In This Page:
+{: .no_toc }
+
+- TOC
+{:toc}
 
 ---
 

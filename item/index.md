@@ -5,12 +5,19 @@ nav_order: 4
 ---
 
 # Conveyor Items
+{: .no_toc }
 
 ---
 
 {: .important}
 > Items have two sides to them: `Conveyor Item` and `Conveyor Item Descriptor`. <br>
 > Descriptors will describe an item type, while items will be the individual items running on conveyors.
+
+## In This Page:
+{: .no_toc }
+
+- TOC
+{:toc}
 
 ---
 

@@ -5,10 +5,17 @@ nav_order: 6
 ---
 
 # Conveyor Statics Library
+{: .no_toc }
 
 ---
 
 **Conveyor Statics** is a blueprint function library (Also useful in C++) that can be used to safely interact with the simulation layer of the conveyor system.
+
+## Table of Contents:
+{: .no_toc }
+
+- TOC
+{:toc}
 
 ---
 

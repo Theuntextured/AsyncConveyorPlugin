@@ -6,6 +6,15 @@ nav_order: 3
 ---
 
 # Structures
+{: .no_toc }
+
+---
+
+## In This Page:
+{: .no_toc }
+
+- TOC
+{:toc}
 
 ---
 

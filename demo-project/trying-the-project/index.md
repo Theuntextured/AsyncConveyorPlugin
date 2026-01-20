@@ -6,6 +6,14 @@ nav_order: 1
 ---
 
 # Trying out the Project
+{: .no_toc }
+---
+
+## In This Page:
+{: .no_toc }
+
+- TOC
+{:toc}
 
 ---
 
