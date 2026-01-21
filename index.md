@@ -28,12 +28,12 @@ The wiki contains all the information you need to get started with the plugin. I
 
 If you're just getting started, I recommend reading in the following order:
 1. [How does the plugin work?](#how-does-the-plugin-work): It is quite useful to know how the plugin works overall before diving into the specifics. 
-1. [Creating Conveyors](/AsyncConveyorPlugin/component/): Explains how to create a conveyor belt.
-2. [Conveyor Item](/AsyncConveyorPlugin/item/): Explains how to register and create items that can be carried by conveyors.
-3. [Node Actions](/AsyncConveyorPlugin/node-actions/): All you need to know about node actions: objects which can efficiently handle: adding, removing and modifying items on conveyors, ticking nodes, observe items and manage round-robins.
-4. [Common Issues](/AsyncConveyorPlugin/issues/): Common issues and their solutions.
-5. [Demo Project](/AsyncConveyorPlugin/demo-project/): A simple project that shows how to use the plugin. It will cover most use-cases for the plugin, with an analysis on the logic and functions used.
-6. [Conveyor Statics](/AsyncConveyorPlugin/conveyor-statics/): Give this a quick scan. These are functions that can be used to manipulate conveyor belts during runtime.
+2. [Creating Conveyors](/AsyncConveyorPlugin/component/): Explains how to create a conveyor belt.
+3. [Conveyor Item](/AsyncConveyorPlugin/item/): Explains how to register and create items that can be carried by conveyors.
+4. [Node Actions](/AsyncConveyorPlugin/node-actions/): All you need to know about node actions: objects which can efficiently handle: adding, removing and modifying items on conveyors, ticking nodes, observe items and manage round-robins.
+5. [Common Issues](/AsyncConveyorPlugin/issues/): Common issues and their solutions.
+6. [Demo Project](/AsyncConveyorPlugin/demo-project/): A simple project that shows how to use the plugin. It will cover most use-cases for the plugin, with an analysis on the logic and functions used.
+7. [Conveyor Statics](/AsyncConveyorPlugin/conveyor-statics/): Give this a quick scan. These are functions that can be used to manipulate conveyor belts during runtime.
 
 ---
 
