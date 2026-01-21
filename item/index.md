@@ -35,7 +35,6 @@ The data required is a `Conveyor Item Descriptor` struct, which is composed as f
 
 | Property             | Type                     | Description                                                                                               |
 |:---------------------|:-------------------------|:----------------------------------------------------------------------------------------------------------|
-| Item Name            | Name                     | The unique identifier for the item. If two items have the same name, they will be taken as the same item. |
 | Mesh                 | Static Mesh              | The visual mesh for the item.                                                                             |
 | Local Mesh Transform | Transform                | The local transform of the mesh.                                                                          | 
 | Material Overrides   | Material Interface Array | (Optional) Material overrides for the mesh.                                                               |

@@ -9,6 +9,8 @@ plugins:
 favicon_ico: /assets/images/icon.svg
 color_scheme: dark
 
+logo: /assets/images/logo.png
+
 callouts:
   warning:
     title: Warning
