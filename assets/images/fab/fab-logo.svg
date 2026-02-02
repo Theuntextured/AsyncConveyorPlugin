@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&amp;display=swap');
+      
+      .neon-line { fill: none; stroke: #4DEEEA; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+      .neon-thin { fill: none; stroke: #4DEEEA; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+      
+      /* Typography */
+      .text-title { font-family: 'Orbitron', sans-serif; font-weight: 900; fill: #E0E0E0; letter-spacing: 20px; font-size: 130px; text-anchor: middle; }
+      
+      .text-sub   { font-family: 'Orbitron', sans-serif; font-weight: 900; fill: #E0E0E0; letter-spacing: 68px; font-size: 100px; text-anchor: middle; }
+      
+      .text-ver   { font-family: 'Orbitron', sans-serif; font-weight: 700; fill: #808080; letter-spacing: 2px; font-size: 50px; text-anchor: end; }
+    </style>
+  </defs>
+
+
+  <rect x="0" y="0" width="1920" height="1080" fill="#27262B"/>
+  
+  <!-- Outer Capsule Border (16:9 Aspect) -->
+  <rect x="100" y="80" width="1720" height="920" rx="150" fill="none" stroke="#A090B0" stroke-width="5" opacity="0.3"/>
+
+  <!-- MAIN ICON GROUP -->
+  <!-- Scaled up by approx 3x and centered -->
+  <g transform="translate(480, 150) scale(2.8)">
+    
+    <!-- The Box -->
+    <path class="neon-line" d="M 60 10 L 110 10 L 110 60 L 60 60 Z" />
+    <path class="neon-thin" d="M 75 10 L 75 25 L 85 35 L 95 25 L 95 10" /> 
+    <line class="neon-thin" x1="90" y1="50" x2="105" y2="50" />
+
+    <!-- The Conveyor Belt -->
+    <path class="neon-line" d="M 20 72 L 245 72 A 20 20 0 0 1 245 112 L 20 112 A 20 20 0 0 1 20 72 Z" />
+    <path class="neon-thin" d="M 20 80 L 245 80 A 12 12 0 0 1 245 104 L 20 104 A 12 12 0 0 1 20 80 Z" />
+
+    <!-- Rollers -->
+    <circle cx="20" cy="92" r="8" class="neon-thin" />
+    <circle cx="65" cy="92" r="8" class="neon-thin" />
+    <circle cx="110" cy="92" r="8" class="neon-thin" />
+    <circle cx="155" cy="92" r="8" class="neon-thin" />
+    <circle cx="200" cy="92" r="8" class="neon-thin" />
+    <circle cx="245" cy="92" r="8" class="neon-thin" />
+
+    <!-- Bubbles -->
+    <circle cx="20" cy="50" r="8" class="neon-thin" />
+    <circle cx="145" cy="50" r="8" class="neon-thin" />
+    <circle cx="190" cy="50" r="8" class="neon-thin" />
+    <circle cx="235" cy="50" r="8" class="neon-thin" />
+
+    <!-- Arrows -->
+    <line class="neon-line" x1="285" y1="92" x2="335" y2="92" />
+    <path class="neon-line" d="M 325 80 L 337 92 L 325 104" />
+    <path class="neon-line" d="M 340 80 L 352 92 L 340 104" />
+  </g>
+
+  <!-- TEXT SECTION -->
+  <!-- "CONVEYOR" -->
+  <text x="960" y="750" class="text-title">
+    CONVEYOR
+  </text>
+  
+  <!-- "PLUGIN" -->
+  <!-- Spacing increased to match width of Conveyor -->
+  <!-- Note: x position slightly offset to account for letter-spacing shifting visual center -->
+  <text x="960" y="880" class="text-sub">
+    PLUGIN
+  </text>
+  
+  <!-- "v3" -->
+  <!-- Aligned to the right edge of the text block (approx X=1400) -->
+  <text x="1310" y="940" class="text-ver">
+    v3
+  </text>
+
+</svg>

@@ -11,7 +11,7 @@ nav_order: 1
 
 "Async Conveyor Plugin" is a plugin for Unreal Engine made in C++.
 
-The goal of the plugin is to provide a way to create conveyor belts that can be updated asynchronously, offering great performance, without compromising on ease of use, modularity, and flexibility.
+The goal of the plugin is to provide a way to create conveyor belts that can be updated asynchronously, offering great performance, without compromising on ease of use, modularity, and flexibility. It has been made with both C++ and Blueprint implementation in mind.
 
 This wiki is about how you can implement the plugin into your project.
 
