@@ -8,6 +8,14 @@ nav_order: 100
 
 ---
 
+## v3.0.1
+
+- Improved performance by reducing the amount of discarded rendering data gathered.
+- Removed `WorkerSize` property from [Conveyor Settings](/AsyncConveyorPlugin/settings/)
+- Added `Conveyor Segment Grid Size` property to [Conveyor Settings](/AsyncConveyorPlugin/settings/)
+
+---
+
 ## v3.0.0
 
 - Complete rewrite of the plugin
