@@ -8,6 +8,10 @@ nav_order: 100
 
 ---
 
+## v3.0.2
+
+- Fixed `Nodes` and `Connections` properties in the `Conveyor Component Data` struct being marked as `BlueprintReadOnly` rather than `BlueprintReadWrite`.
+
 ## v3.0.1
 
 - Improved performance by reducing the amount of discarded rendering data gathered.
