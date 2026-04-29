@@ -111,6 +111,9 @@ At the bottom of the context menu is a selector for visualization modes.
 
 By creating a `Conveyor Component Data` struct, you can then call `Register Conveyor Component` and `Unregister Conveyor Component` via the [Conveyor Statics] library.
 
+{: .warning}
+> Tangents in this plugin and tangents in `FSpline` (UE's splines) work slightly differently. To convert UE's spline tangents to plugin tangents, multiply the `LeaveTangent` by `0.5` and the `ArriveTangent` by `-0.5`. For an example, use the [demo project](/AsyncConveyorPlugin/demo-project/).
+
 {: .note}
 > The event dispatcher is wrapped around the `On Complete` struct property due to limitations with UFunctions.
 

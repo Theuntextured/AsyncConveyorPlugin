@@ -8,6 +8,14 @@ nav_order: 100
 
 ---
 
+## v3.0.3
+
+- Fixed [Demo Map](https://github.com/Theuntextured/AsyncConveyorPlugin/releases/latest)
+  - Also added a bezier spline conveyor demo
+- Fixed Bezier splines not working correctly
+
+---
+
 ## v3.0.2
 
 - Fixed `Nodes` and `Connections` properties in the `Conveyor Component Data` struct being marked as `BlueprintReadOnly` rather than `BlueprintReadWrite`.
@@ -25,6 +33,4 @@ nav_order: 100
 ## v3.0.0
 
 - Complete rewrite of the plugin
-  - Note: This is a breaking change. Everything made with v2.X.X or lower will not work with v3.0.0
-
-
+  - Note: This is a breaking change. Everything made with v2 or v1 will not work with v3
