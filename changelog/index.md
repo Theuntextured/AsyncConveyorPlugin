@@ -8,7 +8,15 @@ nav_order: 100
 
 ---
 
+## v3.0.4
+_25/09/2026_
+
+- Fixed shader compilation errors in UE5.8 due to changes in `Vertex Factory` requirements and common code.
+
+---
+
 ## v3.0.3
+_29/04/2026_
 
 - Fixed [Demo Map](https://github.com/Theuntextured/AsyncConveyorPlugin/releases/latest)
   - Also added a bezier spline conveyor demo
@@ -17,12 +25,14 @@ nav_order: 100
 ---
 
 ## v3.0.2
+_29/03/2026_
 
 - Fixed `Nodes` and `Connections` properties in the `Conveyor Component Data` struct being marked as `BlueprintReadOnly` rather than `BlueprintReadWrite`.
 
 ---
 
 ## v3.0.1
+_3/02/2026_
 
 - Improved performance by reducing the amount of discarded rendering data gathered.
 - Removed `WorkerSize` property from [Conveyor Settings](/AsyncConveyorPlugin/settings/)
@@ -31,6 +41,7 @@ nav_order: 100
 ---
 
 ## v3.0.0
+_2/02/2026_
 
 - Complete rewrite of the plugin
   - Note: This is a breaking change. Everything made with v2 or v1 will not work with v3
